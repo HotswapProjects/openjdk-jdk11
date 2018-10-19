@@ -189,8 +189,8 @@ class FieldCopier : public FieldClosure {
     if (found && result.is_static()) {
       log_trace(redefine, class, obsolete, metadata)("Copying static field value for field %s old_offset=%d new_offset=%d",
                                                fd->name()->as_C_string(), result.offset(), fd->offset());
-      memcpy(cur_oop->obj_field_addr<HeapWord>(fd->offset()),
-             old_oop->obj_field_addr<HeapWord>(result.offset()),
+      memcpy(cur_oop->obj_field_addr_raw<HeapWord>(fd->offset()),
+             old_oop->obj_field_addr_raw<HeapWord>(result.offset()),
              type2aelembytes(fd->field_type()));
 
       // Static fields may have references to java.lang.Class
@@ -228,14 +228,14 @@ struct StoreBarrier {
 
 // TODO comment
 struct StoreNoBarrier {
-  template <class T> static void oop_store(T* p, oop v) { oopDesc::encode_store_heap_oop_not_null(p, v); }
+  template <class T> static void oop_store(T* p, oop v) { RawAccess<IS_NOT_NULL>::oop_store(p, v); }
 };
 
 /**
   Closure to scan all heap objects and update method handles
 */
 template <class S>
-class ChangePointersOopClosure : public ExtendedOopClosure {
+class ChangePointersOopClosure : public BasicOopIterateClosure {
   // import java_lang_invoke_MemberName.*
   enum {
     REFERENCE_KIND_SHIFT = java_lang_invoke_MemberName::MN_REFERENCE_KIND_SHIFT,
@@ -328,7 +328,7 @@ class ChangePointersOopClosure : public ExtendedOopClosure {
   // Forward pointers to InstanceKlass and mirror class to new versions
   template <class T>
   inline void do_oop_work(T* p) {
-    oop obj = oopDesc::load_decode_heap_oop(p);
+    oop obj = RawAccess<>::oop_load(p);
     if (obj == NULL) {
       return;
     }
@@ -403,7 +403,7 @@ public:
       // Causes SIGSEGV?
       //instanceMirrorKlass::oop_fields_iterate(obj, _closure);
     } else {
-      obj->oop_iterate_no_header(_closure);
+      obj->oop_iterate(_closure);
     }
 
     if (obj->klass()->new_version() != NULL) {
@@ -2184,8 +2184,8 @@ jvmtiError VM_EnhancedRedefineClasses::do_topological_class_sorting(TRAPS) {
                            true,
                            THREAD);
 
-    Klass* super_klass = const_cast<Klass*>(parser.super_klass());
-    if (super_klass != NULL && _affected_klasses->contains(super_klass)) {
+    const Klass* super_klass = parser.super_klass();
+    if (super_klass != NULL && _affected_klasses->contains((Klass*) super_klass)) {
       links.append(KlassPair(super_klass, klass));
     }
 
