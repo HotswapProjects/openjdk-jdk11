@@ -28,16 +28,13 @@
 #include "classfile/metadataOnStackMark.hpp"
 #include "classfile/systemDictionary.hpp"
 #include "classfile/verifier.hpp"
-#include "classfile/javaClasses.inline.hpp"
-#include "code/codeCache.hpp"
-#include "compiler/compileBroker.hpp"
-#include "gc/shared/gcLocker.hpp"
 #include "interpreter/oopMapCache.hpp"
 #include "interpreter/rewriter.hpp"
 #include "logging/logStream.hpp"
 #include "memory/metadataFactory.hpp"
 #include "memory/metaspaceShared.hpp"
 #include "memory/resourceArea.hpp"
+#include "memory/iterator.inline.hpp"
 #include "gc/serial/markSweep.hpp" // FIXME: other GC?
 #include "oops/fieldStreams.hpp"
 #include "oops/klassVtable.hpp"
@@ -48,10 +45,10 @@
 #include "prims/methodComparator.hpp"
 #include "prims/resolvedMethodTable.hpp"
 #include "runtime/deoptimization.hpp"
+#include "runtime/jniHandles.inline.hpp"
 #include "runtime/relocator.hpp"
 #include "utilities/bitMap.inline.hpp"
 #include "utilities/events.hpp"
-#include "services/heapDumper.hpp"
 
 Array<Method*>* VM_EnhancedRedefineClasses::_old_methods = NULL;
 Array<Method*>* VM_EnhancedRedefineClasses::_new_methods = NULL;
@@ -375,13 +372,13 @@ class ChangePointersOopClosure : public BasicOopIterateClosure {
 class ChangePointersObjectClosure : public ObjectClosure {
   private:
 
-  OopClosure *_closure;
+  OopIterateClosure *_closure;
   bool _needs_instance_update;
   oop _tmp_obj;
   int _tmp_obj_size;
 
 public:
-  ChangePointersObjectClosure(OopClosure *closure) : _closure(closure), _needs_instance_update(false), _tmp_obj(NULL), _tmp_obj_size(0) {}
+  ChangePointersObjectClosure(OopIterateClosure *closure) : _closure(closure), _needs_instance_update(false), _tmp_obj(NULL), _tmp_obj_size(0) {}
 
   bool needs_instance_update() {
     return _needs_instance_update;
