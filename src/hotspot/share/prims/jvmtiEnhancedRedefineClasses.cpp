@@ -48,6 +48,7 @@
 #include "runtime/jniHandles.inline.hpp"
 #include "runtime/relocator.hpp"
 #include "utilities/bitMap.inline.hpp"
+#include "prims/jvmtiThreadState.inline.hpp"
 #include "utilities/events.hpp"
 
 Array<Method*>* VM_EnhancedRedefineClasses::_old_methods = NULL;
