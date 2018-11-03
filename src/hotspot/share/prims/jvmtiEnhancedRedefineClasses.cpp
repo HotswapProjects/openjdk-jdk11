@@ -50,6 +50,7 @@
 #include "utilities/bitMap.inline.hpp"
 #include "prims/jvmtiThreadState.inline.hpp"
 #include "utilities/events.hpp"
+#include "oops/constantPool.inline.hpp"
 
 Array<Method*>* VM_EnhancedRedefineClasses::_old_methods = NULL;
 Array<Method*>* VM_EnhancedRedefineClasses::_new_methods = NULL;
