@@ -1,6 +1,6 @@
 
-Welcome to the JDK!
-===================
+Welcome to the JDK with HotswapVM(DCEVM)!
+=========================================
 
 For information about building the JDK, including how to retrieve all
 of the source code, please see either of these files:
