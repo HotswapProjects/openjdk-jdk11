@@ -2,5 +2,6 @@ language: c
 before_install:
     - sudo apt-get update -qq
     - sudo apt install openjdk-11-jdk
+    - sudo apt-get install libx11-dev libxext-dev libxrender-dev libxtst-dev libxt-dev
 script:
   - bash ./configure && make images
