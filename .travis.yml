@@ -1,0 +1,5 @@
+language: c
+jdk: openjdk11
+script:
+  - jdk_switcher use openjdk11
+  - bash ./configure && make images
