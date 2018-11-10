@@ -1,5 +1,6 @@
 language: c
-jdk: openjdk11
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt install openjdk-11-jdk
 script:
-  - jdk_switcher use openjdk11
   - bash ./configure && make images
