@@ -20,6 +20,4 @@ script:
         --with-zlib=bundled
         --with-version-pre=''
         --with-version-opt=''
-        --with-extra-cflags="-O2 -march=x86-64 -mtune=generic -pipe -fstack-protector-strong" 
-        --with-extra-cxxflags="-O2 -march=x86-64 -mtune=generic -pipe -fstack-protector-strong"
   - make images
