@@ -16,7 +16,6 @@ matrix:
 #  - sudo apt-get install openjdk-11-jdk
 script:
   - bash configure
-        --with-boot-jdk=/usr/lib/jvm/java-11-openjdk-amd64/
         --with-version-build=''
         --with-version-pre=''
         --with-version-opt=''
