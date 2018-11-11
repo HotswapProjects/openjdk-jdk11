@@ -1,6 +1,11 @@
 language: cpp
+
+matrix:
+  include:
+  - os: linux
+    dist: xenial
+
 before_install:
-    - sudo apt-get update -qq
     - sudo apt install openjdk-11-jdk
                        libx11-dev 
                        libxext-dev 
@@ -12,12 +17,21 @@ before_install:
                        libasound2-dev
 script:
   - bash configure
+        --with-version-build="1"
+        --with-version-pre=''
+        --with-version-opt=''
         --enable-unlimited-crypto=yes
         --disable-warnings-as-errors
         --disable-hotspot-gtest
         --with-debug-level=release
-        --with-stdc++lib=static
-        --with-zlib=bundled
+        --with-stdc++lib=dynamic
+        --with-zlib=system
+        --with-lcms=system
+        --with-libpng=system
+        --with-libjpeg=system
         --with-version-pre=''
         --with-version-opt=''
+        --with-jvm-features=zgc
+        --with-giflib=system
+
   - make images
