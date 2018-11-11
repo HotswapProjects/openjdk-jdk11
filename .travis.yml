@@ -1,10 +1,26 @@
-language: c
+language: cpp
 before_install:
     - sudo apt-get update -qq
     - sudo apt install openjdk-11-jdk
-    - sudo apt-get install libx11-dev libxext-dev libxrender-dev libxtst-dev libxt-dev
-    - sudo apt-get install libcups2-dev
-    - sudo apt-get install libasound2-dev
-    - sudo apt-get install libasound2-dev
+                       libx11-dev 
+                       libxext-dev 
+                       libxrender-dev 
+                       libxtst-dev 
+                       libxt-dev
+                       libcups2-dev
+                       libasound2-dev
+                       libasound2-dev
 script:
-  - bash ./configure && make images
+  - bash configure
+        --enable-unlimited-crypto=yes
+        --disable-warnings-as-errors
+        --disable-hotspot-gtest
+        --with-native-debug-symbols=${OJDK_WITH_NATIVE_DEBUG_SYMBOLS} 
+        --with-debug-level=${OJDK_WITH_DEBUG_LEVEL}
+        --with-stdc++lib=static
+        --with-zlib=bundled
+        --with-version-pre=''
+        --with-version-opt=''
+        --with-extra-cflags="-O2 -march=x86-64 -mtune=generic -pipe -fstack-protector-strong" 
+        --with-extra-cxxflags="-O2 -march=x86-64 -mtune=generic -pipe -fstack-protector-strong"
+  - make images
