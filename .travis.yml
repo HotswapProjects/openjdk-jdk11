@@ -9,6 +9,8 @@ matrix:
     dist: xenial
     sudo: required
 
+install:
+  - sudo apt-get install openjdk-11-jre openjdk-11-jdk
 script:
   - bash configure
         --with-version-build="1"
