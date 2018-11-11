@@ -1,9 +1,13 @@
 language: cpp
 
+compiler:
+  - gcc
+
 matrix:
   include:
   - os: linux
     dist: xenial
+    sudo: required
 
 before_install:
     - sudo apt install openjdk-11-jdk
