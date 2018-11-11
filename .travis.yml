@@ -15,7 +15,7 @@ install:
   - sudo apt-get install openjdk-11-jdk
 script:
   - bash configure
-        --with-boot-jdk=/usr/local/lib/jvm/openjdk11
+        --with-boot-jdk=/usr/lib/jvm/java-8-openjdk-amd64/
         --with-version-build="1"
         --with-version-pre=''
         --with-version-opt=''
