@@ -20,21 +20,16 @@ install:
 #  - sudo apt-get install openjdk-11-jdk
 script:
   - bash -c "bash ./configure
-        --with-boot-jdk=/opt/bootjdk
-        --with-version-build=''
-        --with-version-pre='dcevmbuild'
-        --with-version-opt=''
         --enable-unlimited-crypto=yes
         --disable-warnings-as-errors
         --disable-hotspot-gtest
-        --with-debug-level=release
+        --with-native-debug-symbols=${OJDK_WITH_NATIVE_DEBUG_SYMBOLS} 
+        --with-debug-level=${OJDK_WITH_DEBUG_LEVEL}
         --with-stdc++lib=dynamic
-        --with-zlib=system
-        --with-lcms=system
-        --with-libpng=system
-        --with-libjpeg=system
-        --with-jvm-features=zgc
-        --with-giflib=system
+        --with-zlib=bundled
+        --with-boot-jdk=/opt/bootjdk
+        --with-version-pre=dcevmbuild
+        --with-version-build=''
+        --with-version-opt=''
         --with-log=info"
-        
   - make images
