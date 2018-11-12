@@ -10,10 +10,9 @@ matrix:
     sudo: required
 
 install:
-  - cd /opt
-  - curl -LO https://github.com/ojdkbuild/contrib_jdk10u-ci/releases/download/jdk-10.0.2%2B13/jdk-10.0.2-ojdkbuild-linux-x64.zip
-  - unzip -q jdk-10.0.2-ojdkbuild-linux-x64.zip
-  - mv jdk-10.0.2-ojdkbuild-linux-x64 bootjdk
+  - (cd /opt; curl -LO https://github.com/ojdkbuild/contrib_jdk10u-ci/releases/download/jdk-10.0.2%2B13/jdk-10.0.2-ojdkbuild-linux-x64.zip)
+  - (cd /opt; unzip -q jdk-10.0.2-ojdkbuild-linux-x64.zip)
+  - (cd /opt; mv jdk-10.0.2-ojdkbuild-linux-x64 bootjdk)
    
 #  - apt-get install default-jdk
 #  - sudo add-apt-repository -y ppa:openjdk-r/ppa
