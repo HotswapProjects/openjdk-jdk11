@@ -23,8 +23,8 @@ script:
         --enable-unlimited-crypto=yes
         --disable-warnings-as-errors
         --disable-hotspot-gtest
-        --with-native-debug-symbols=${OJDK_WITH_NATIVE_DEBUG_SYMBOLS} 
-        --with-debug-level=${OJDK_WITH_DEBUG_LEVEL}
+        --with-native-debug-symbols=none
+        --with-debug-level=release
         --with-stdc++lib=dynamic
         --with-zlib=bundled
         --with-boot-jdk=/opt/bootjdk
