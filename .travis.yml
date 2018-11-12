@@ -19,10 +19,10 @@ install:
 #  - sudo apt-get update -q
 #  - sudo apt-get install openjdk-11-jdk
 script:
-  - bash configure
+  - bash "configure
         --with-boot-jdk=/opt/bootjdk
         --with-version-build=''
-        --with-version-pre=''
+        --with-version-pre='dcevmbuild'
         --with-version-opt=''
         --enable-unlimited-crypto=yes
         --disable-warnings-as-errors
@@ -33,9 +33,8 @@ script:
         --with-lcms=system
         --with-libpng=system
         --with-libjpeg=system
-        --with-version-pre=''
-        --with-version-opt=''
         --with-jvm-features=zgc
         --with-giflib=system
-
+        --with-log=info"
+        
   - make images
