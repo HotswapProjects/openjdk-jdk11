@@ -19,7 +19,7 @@ install:
 #  - sudo apt-get update -q
 #  - sudo apt-get install openjdk-11-jdk
 script:
-  - bash "configure
+  - bash -c "bash ./configure
         --with-boot-jdk=/opt/bootjdk
         --with-version-build=''
         --with-version-pre='dcevmbuild'
