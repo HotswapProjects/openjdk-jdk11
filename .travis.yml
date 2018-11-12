@@ -9,13 +9,19 @@ matrix:
     dist: xenial
     sudo: required
 
-# install:
+install:
+  - cd /opt
+  - curl -LO https://github.com/ojdkbuild/contrib_jdk10u-ci/releases/download/jdk-10.0.2%2B13/jdk-10.0.2-ojdkbuild-linux-x64.zip
+  - unzip -q jdk-10.0.2-ojdkbuild-linux-x64.zip
+  - mv jdk-10.0.2-ojdkbuild-linux-x64 bootjdk
+   
 #  - apt-get install default-jdk
 #  - sudo add-apt-repository -y ppa:openjdk-r/ppa
 #  - sudo apt-get update -q
 #  - sudo apt-get install openjdk-11-jdk
 script:
   - bash configure
+        --with-boot-jdk=/opt/bootjdk
         --with-version-build=''
         --with-version-pre=''
         --with-version-opt=''
